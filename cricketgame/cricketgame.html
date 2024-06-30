@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Game</title>
+    <link rel="stylesheet" href="cricket.css">
+</head>
+<body>
+    <div class="center">
+        <h1>Welcome to this Game</h1>
+        <p id="choice"></p>
+        <p id="tie"></p>
+        <button class="button" id="usertap1" onclick="runComputer('bat')">
+            <img src="https://gmcricket.in/media/catalog/product/cache/757ea7d2b7282843694bdb6de7a23598/d/i/diamond-808-english-willow-cricket-bat_1.jpg" alt="bat" class="img">
+        </button>
+        <button class="button" id="usertap2" onclick="runComputer('ball')">
+            <img src="https://cdn.nwscdn.com/media/catalog/product/cache/h700xw700/m/i/middling-ball-shot_1_1.jpg" alt="ball" class="img">
+        </button>
+        <button class="button" id="usertap3" onclick="runComputer('stamp')">
+            <img src="https://im.rediff.com/cricket/2014/mar/27stumps1.jpg" alt="stamp" class="img">
+        </button><br>
+        <p id="scorecard"></p>
+        <button class="reset" onclick="resetGame()">reset</button>
+    </div>
+    
+    <script>
+        let computerChoice = '';
+        let userscore=0;
+        let comuputerscore=0;
+
+        function runComputer(userChoice) {
+            let value = Math.random() * 10;
+            if (value < 3) {
+                computerChoice = 'bat';
+            } else if (value >= 3 && value < 6) {
+                computerChoice = 'ball';
+            } else {
+                computerChoice = 'stamp';
+            }
+
+            document.querySelector("#choice").innerHTML = `Computer chose: ${computerChoice}`;
+            compare(userChoice, computerChoice);
+        }
+        
+        function compare(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                document.querySelector("#tie").innerHTML = "It is a tie match.";
+            } else if ((userChoice === 'bat' && computerChoice === 'ball') || 
+                       (userChoice === 'ball' && computerChoice === 'stamp') || 
+                       (userChoice === 'stamp' && computerChoice === 'bat')) {
+                document.querySelector("#tie").innerHTML = "User won the match.";
+               ++userscore;
+            } else {
+                document.querySelector("#tie").innerHTML = "Computer won the match.";
+                ++comuputerscore;
+            }
+            document.querySelector("#scorecard").innerHTML=`user score is ${userscore} and computer score is ${comuputerscore}`;
+        }
+
+        function resetGame() {
+            document.querySelector("#choice").innerHTML = '';
+            document.querySelector("#tie").innerHTML = '';
+        }
+    </script>
+</body>
+</html>
